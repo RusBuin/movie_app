@@ -13,6 +13,9 @@ import com.example.myapplication.presentation.onboarding.OnBoardingViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.myapplication.presentation.home.HomeScreen
+import com.example.myapplication.presentation.home.HomeViewModel
 
 import com.example.myapplication.presentation.onboarding.OnBoardingScreen
 
@@ -40,11 +43,14 @@ fun NavGraph(
             composable(route = Route.NavigationScreen.route){
                 Scaffold(topBar = {
                     TopAppBar(
-                        title = {                    Text(text = "Navigator Screen") }
+                        title = {Text(text = "Navigator Screen") }
                     )
                 }) { padding->
 
-                    Text(text = "Navigator Screen", modifier = Modifier.padding(padding)) }
+                    val viewModel: HomeViewModel = hiltViewModel()
+                    val result = viewModel.movies.collectAsLazyPagingItems()
+                    HomeScreen(result = result, navigate = {})
+                     }
 
             }
         }
