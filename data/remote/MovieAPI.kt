@@ -1,6 +1,5 @@
 package com.example.myapplication.data.remote
 
-import android.graphics.Movie
 import retrofit2.http.Query
 import com.example.myapplication.data.remote.dto.MovieResponse
 import com.example.myapplication.presentation.onboarding.Page
@@ -10,7 +9,7 @@ import retrofit2.http.GET
 interface MovieAPI {
 
     @GET("movie/popular")
-    suspend fun getAllMovies(
+    suspend fun getMovies(
         @Query("page") page: Int,
         @Query("api_key") apiKey: String = API_KEY,
     ) : MovieResponse

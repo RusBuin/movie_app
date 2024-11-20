@@ -1,6 +1,5 @@
 package com.example.myapplication.presentation.common
 
-import android.graphics.Movie
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -17,20 +16,20 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.myapplication.presentation.Dimens.ArticleCardSize
 import com.example.myapplication.ui.theme.MyApplicationTheme
-import com.example.myapplication.domain.model.Result
 import com.example.myapplication.presentation.Dimens.ExtraSmallPadding
 import com.example.myapplication.R
+import com.example.myapplication.domain.model.Movie
 
 
 @Composable
 fun MovieCard(
     modifier: Modifier = Modifier,
-    result: Result,
+    movie: com.example.myapplication.domain.model.Movie,
     onClick: () -> Unit
 ) {
 
     val context = LocalContext.current
-    val imageUrl = "https://image.tmdb.org/t/p/w500${result.poster}"
+    val imageUrl = "https://image.tmdb.org/t/p/w500${movie.poster}"
 
     Row(modifier = modifier.clickable { onClick() }) {
         AsyncImage(
@@ -50,7 +49,7 @@ fun MovieCard(
                 .height(ArticleCardSize)
         ) {
             Text(
-                text = result.title,
+                text = movie.title,
                 style = MaterialTheme.typography.bodyMedium,
                 color = colorResource(id = R.color.text_title),
                 maxLines = 2,
@@ -65,7 +64,7 @@ fun MovieCard(
 fun ArticleCardPreview() {
     MyApplicationTheme {
         MovieCard(
-            result = Result(
+            movie = Movie(
                 id = TODO(),
                 poster = TODO(),
                 title = TODO(),

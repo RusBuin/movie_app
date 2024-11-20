@@ -1,14 +1,12 @@
 package com.example.myapplication.presentation.details
 
-import android.content.Intent
 import androidx.compose.ui.res.colorResource
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import com.example.myapplication.domain.model.Result
+import com.example.myapplication.domain.model.Movie
 import com.example.myapplication.presentation.details.components.DetailsTopBar
-import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
@@ -25,7 +23,7 @@ import com.example.myapplication.R
 
 @Composable
 fun DetailsScreen(
-    result: Result,
+    movie: Movie,
     event: (DetailsEvent) -> Unit,
     navigateUp: () -> Unit
 ) {
@@ -49,7 +47,7 @@ fun DetailsScreen(
         ) {
             item {
                 AsyncImage(
-                    model = ImageRequest.Builder(context = context).data(result.poster)
+                    model = ImageRequest.Builder(context = context).data(movie.poster)
                         .build(),
                     contentDescription = null,
                     modifier = Modifier
@@ -60,28 +58,28 @@ fun DetailsScreen(
                 )
                 Spacer(modifier = Modifier.height(MediumPadding1))
                 Text(
-                    text = result.title,
+                    text = movie.title,
                     style = MaterialTheme.typography.displaySmall,
                     color = colorResource(
                         id = R.color.text_title
                     )
                 )
                 Text(
-                    text = result.overview,
+                    text = movie.overview,
                     style = MaterialTheme.typography.bodyMedium,
                     color = colorResource(
                         id = R.color.body
                     )
                 )
                 Text(
-                    text = result.originalLangauge,
+                    text = movie.originalLangauge,
                     style = MaterialTheme.typography.displayMedium,
                     color = colorResource(
                         id = R.color.body
                     )
                 )
                 Text(
-                    text = result.releaseDate,
+                    text = movie.releaseDate,
                     style = MaterialTheme.typography.titleMedium,
                     color = colorResource(
                         id = R.color.body
@@ -98,7 +96,7 @@ fun DetailsScreen(
 fun DetailsScreenPreview() {
     MyApplicationTheme (dynamicColor = false) {
         DetailsScreen(
-            result = Result(
+            movie = Movie(
                 id = 1,
                 poster = "https://image.tmdb.org/t/p/w500/",
                 title = "TITLE",

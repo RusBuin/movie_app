@@ -59,8 +59,9 @@ object AppModule {
     @Provides
     @Singleton
     fun provideMoviesRepository(
-        movieAPI: MovieAPI
-    ): MovieRepository = MovieRepositoryImpl(movieAPI)
+        movieAPI: MovieAPI,
+        movieDao: MovieDao
+    ): MovieRepository = MovieRepositoryImpl(movieAPI, movieDao)
 
 
     @Provides

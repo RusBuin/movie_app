@@ -14,24 +14,19 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.Navigator
 import androidx.paging.compose.LazyPagingItems
-import com.example.myapplication.domain.model.Result
+import com.example.myapplication.domain.model.Movie
 import com.example.myapplication.presentation.Dimens.MediumPadding1
-import com.example.myapplication.presentation.Dimens.MediumPadding2
 import com.example.myapplication.R
 import com.example.myapplication.presentation.common.ArticlesList
-import com.example.myapplication.presentation.common.SearchBar
-import com.example.myapplication.presentation.common.SearchBarPreview
-import com.example.myapplication.presentation.nvgraph.Route
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(result: LazyPagingItems<Result>, navigate: (Result) -> Unit) {
+fun HomeScreen(movie: LazyPagingItems<Movie>, navigate: (Movie) -> Unit) {
     val titles by remember {
         derivedStateOf {
-            if (result.itemCount > 10) {
-                result.itemSnapshotList.items
+            if (movie.itemCount > 10) {
+                movie.itemSnapshotList.items
                     .slice(IntRange(0, 9))
                     .joinToString(separator = "\uD83d\uDFE5") { it.title }
             } else {
@@ -60,7 +55,7 @@ fun HomeScreen(result: LazyPagingItems<Result>, navigate: (Result) -> Unit) {
         Spacer(modifier = Modifier.height(MediumPadding1))
         ArticlesList(
             modifier = Modifier.padding(horizontal = MediumPadding1),
-            result = result,
+            movie = movie,
             onClick = { resultItem ->
                 navigate(resultItem) // Передаем весь объект resultItem в navigate
             }

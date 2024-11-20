@@ -9,8 +9,7 @@ import com.example.myapplication.util.Constants.API_KEY
 
 class MoviePagingSource(
     private val movieAPI: MovieAPI
-): PagingSource<Int, Movie>(){
-    private var totalMovieCount = 0
+) : PagingSource<Int, Movie>() {
 
     override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -19,6 +18,8 @@ class MoviePagingSource(
         }
     }
 
+    private var totalMovieCount = 0
+
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val page = params.key ?: 1
         Log.d(
@@ -26,16 +27,16 @@ class MoviePagingSource(
             "Loading page: $page (Initial Load: ${params.key == null}), Load size: ${params.loadSize}, Params: $params"
         )
         return try {
-            val movieResponse = movieAPI.getAllMovies(page = page, apiKey = API_KEY)
+            val movieResponse = movieAPI.getMovies(page = page, apiKey = API_KEY)
             Log.d("MoviePagingSource", "Response from API: ${movieResponse.results.size} movies")
             totalMovieCount += movieResponse.results.size
 
-            val movies = movieResponse.results.distinctBy { it.title }
-            Log.d("MoviePagingSource", "Filtered results count: ${results.size}")
+            val movies = movieResponse.results.distinctBy { it.title }  // Убираем дубликаты
+            Log.d("MoviePagingSource", "Filtered results count: ${movies.size}")
 
             LoadResult.Page(
-                data = results,
-                nextKey = if (totalMovieCount == movieResponse.totalResults) null else page  + 1,
+                data = movies,
+                nextKey = if (totalMovieCount == movieResponse.totalResults) null else page + 1,
                 prevKey = null
             )
         } catch (e: Exception) {
@@ -44,5 +45,4 @@ class MoviePagingSource(
             LoadResult.Error(throwable = e)
         }
     }
-
 }

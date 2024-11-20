@@ -15,7 +15,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.data.local.MovieDao
-import com.example.myapplication.domain.model.Result
+import com.example.myapplication.domain.model.Movie
 import com.example.myapplication.presentation.nvgraph.NavGraph
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -33,19 +33,19 @@ val viewModel by viewModels<MainViewModel>()
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        lifecycleScope.launch {
-dao.upsert(
-    Result(
-    id = 1,
-    poster = "https://image.tmdb.org/t/p/w500/",
-    title = "TITLE",
-    overview = "OVERVIEW",
-    releaseDate = "2024-10-09",
-    voteAverage = 6.919,
-    originalLangauge = "en"
-)
-)
-        }
+//        lifecycleScope.launch {
+//dao.upsert(
+//    Movie(
+//    id = 1,
+//    poster = "https://image.tmdb.org/t/p/w500/",
+//    title = "TITLE",
+//    overview = "OVERVIEW",
+//    releaseDate = "2024-10-09",
+//    voteAverage = 6.919,
+//    originalLanguage = "en"
+//)
+//)
+//        }
 
         installSplashScreen().apply {
             setKeepOnScreenCondition{
